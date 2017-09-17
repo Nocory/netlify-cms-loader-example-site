@@ -1,0 +1,48 @@
+{
+	"name": "vs_test",
+	"version": "0.0.1",
+	"description": "test",
+	"main": "main.js",
+	"scripts": {
+		"dev": "NODE_ENV=development webpack --color --hide-modules",
+		"build": "NODE_ENV=production webpack --color --hide-modules --display-optimization-bailout",
+		"dev-server": "NODE_ENV=development webpack-dev-server --compress --color",
+		"prod-server": "NODE_ENV=production webpack-dev-server --compress --color"
+	},
+	"author": "Conroy",
+	"license": "MIT",
+	"dependencies": {
+		"animejs": "latest",
+		"bulma": "latest",
+		"nord": "latest",
+		"open-color": "latest",
+		"prerender-spa-plugin": "latest",
+		"vue": "latest"
+	},
+	"devDependencies": {
+		"babel-loader": "latest",
+		"babel-minify-webpack-plugin": "latest",
+		"babel-preset-env": "latest",
+		"clean-webpack-plugin": "latest",
+		"copy-webpack-plugin": "latest",
+		"css-loader": "latest",
+		"eslint": "latest",
+		"eslint-plugin-vue": "latest",
+		"extract-text-webpack-plugin": "latest",
+		"file-loader": "latest",
+		"html-webpack-inline-source-plugin": "latest",
+		"html-webpack-plugin": "latest",
+		"node-sass": "latest",
+		"optimize-css-assets-webpack-plugin": "latest",
+		"purify-css": "latest",
+		"purifycss-webpack": "latest",
+		"sass-loader": "latest",
+		"style-loader": "latest",
+		"url-loader": "latest",
+		"vue-loader": "latest",
+		"vue-template-compiler": "latest",
+		"webpack": "latest",
+		"webpack-dev-server": "latest",
+		"webpack-merge": "latest"
+	}
+}

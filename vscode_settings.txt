@@ -1,0 +1,32 @@
+{
+    "[cpp]": {
+        "editor.quickSuggestions": false
+    },
+    "[c]": {
+        "editor.quickSuggestions": false
+    },
+    "workbench.activityBar.visible": false,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "workbench.statusBar.visible": false,
+    "window.menuBarVisibility": "toggle",
+    "editor.renderWhitespace": "none",
+    "editor.renderControlCharacters": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.minimap.enabled": true,
+    "editor.renderIndentGuides": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\Sysnative\\bash.exe",
+    "editor.minimap.renderCharacters": false,
+    "search.exclude": {
+        "**/node_modules": false,
+        "**/bower_components": true
+    },
+    "workbench.colorTheme": "Atom One Dark",
+    "editor.fontSize": 16,
+    "editor.fontFamily": "Roboto Mono",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "vue"
+    ]
+}
