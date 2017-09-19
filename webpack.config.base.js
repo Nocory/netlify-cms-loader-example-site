@@ -48,8 +48,13 @@ module.exports = {
 				test: /\.(ttf|eot|woff|woff2|svg)$/,
 				loader: "url-loader?limit=10240&name=fonts/[name]_[hash:8].[ext]"
 			},
+			// for cms, taking everything in the upadload folder
 			{
-				test: /\.(png|jpg|jpeg|gif)$/,
+				test: /^uploads\/.*(png|jpg|jpeg|gif)$/,
+				loader: "file-loader"
+			},
+			{
+				test: /^(?!uploads\/).*(png|jpg|jpeg|gif)$/,
 				loader: "url-loader?limit=10240&name=img/[name]_[hash:8].[ext]"
 			},
 			{
