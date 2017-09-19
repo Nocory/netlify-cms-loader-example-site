@@ -4,4 +4,24 @@ backend:
   branch: master # Branch to update
 #publish_mode: editorial_workflow
 media_folder: "src/uploads" # Media files will be stored in the repo under static/images/uploads
-public_folder: "/uploads" # The src attribute for uploaded media will begin with /images/uploads
+#public_folder: "/uploads" # The src attribute for uploaded media will begin with /images/uploads
+
+collections:
+  - name: posts
+    label: Post
+    folder: "src/cms"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    create: true
+    fields:
+      - {label: Title, name: title, widget: string, tagname: h1}
+      - {label: Image, name: image, widget: image}
+      - {label: Body, name: body, widget: markdown}
+      - {label: Categories, name: categories, widget: list}
+      - {label: Tags, name: tags, widget: list, default: ['term_1', 'term_2']}
+  - name: images
+    label: Images
+    folder: "src/cms"
+    create: true
+    fields:
+      - {label: Title, name: title, widget: string, tagname: h1}
+      - {label: Image, name: image, widget: image}

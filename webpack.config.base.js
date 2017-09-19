@@ -98,7 +98,10 @@ module.exports = {
 			template: 'src/index.html'
 		}),
 		new HtmlWebpackInlineSourcePlugin(),
-		//new CopyWebpackPlugin([{ from: 'src/assets/directCopy/*', to: 'directCopy/[name].[ext]' }]),
+		new CopyWebpackPlugin([
+			{ from: 'src/admin', to: 'admin' },
+			{ from: 'src/uploads', to: 'uploads' }
+		]),
 		ExtractCritical,
 		ExtractNormal
 		/*
