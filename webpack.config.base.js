@@ -7,6 +7,8 @@ const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
+const netlifyCMSLoader = require("./netlifyCMSLoader")
+
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const ExtractNormal = new ExtractTextPlugin({
 	filename: "[name]_[contenthash:8].css",
@@ -28,7 +30,14 @@ module.exports = {
 		path: path.resolve(__dirname, 'build')
 	},
 	module: {
-		rules: [{
+		rules: [
+			/*
+			{
+			test: /admin\/config.yml$/,
+			use: netlifyCMSLoader
+		},
+		*/
+			{
 				test: /critical\.(css|sass|scss)$/,
 				use: ExtractCritical.extract({
 					fallback: 'style-loader',
@@ -79,6 +88,11 @@ module.exports = {
 			path.resolve(__dirname, 'src'),
 			path.resolve(__dirname, 'node_modules')
 		]
+	},
+	resolveLoader: {
+		alias: {
+			'netlify-cms': path.join(__dirname, 'netlifyCMSLoader.js')
+		}
 	},
 	plugins: [
 		new webpack.optimize.ModuleConcatenationPlugin(),

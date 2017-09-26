@@ -1,39 +1,45 @@
 module.exports = {
-	"env": {
+	root: true,
+	env: {
 		"browser": true,
 		"commonjs": true,
 		"es6": true,
 		"node": true
 	},
-	"extends": [
+	extends: [
 		"eslint:recommended",
+		"plugin:vue/recommended"
 		//"plugin:vue/recommended"
 	],
-	"parserOptions": {
+	parserOptions: {
 		"sourceType": "module"
 	},
-	"rules": {
+	plugins: [
+		//"html",
+		//"vue"
+	],
+	rules: {
 		"no-unused-vars": [
-			"warn"
+			1
 		],
 		"indent": [
-			"warn",
+			1,
 			"tab"
 		],
 		"linebreak-style": [
-			"off",
+			0,
 			"unix"
 		],
 		"quotes": [
-			"off",
+			0,
 			"double"
 		],
 		"semi": [
-			"warn",
+			1,
 			"never"
 		],
 		"no-console": [
-			"off"
+			0
 		],
 		"no-unexpected-multiline": 1,
 		"no-await-in-loop": 1,

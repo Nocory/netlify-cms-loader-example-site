@@ -3,15 +3,20 @@
 		<p>
 			Lorem ipsum dolor sit amet.
 		</p>
+		<p>
+			Lorem ipsum dolor sit amet.
+		</p>
 	</div>
 </template>
 
 <script>
 import anime from 'animejs'
+import cmsData from 'netlify-cms!yaml-loader!../admin/config.yml'
 export default {
 	data() {
 		return {
-			msg: "Message from data"
+			msg: "Message from data",
+			cmsData
 		}
 	},
 	methods: {

@@ -14,10 +14,12 @@
 	"dependencies": {
 		"animejs": "latest",
 		"bulma": "latest",
+		"front-matter": "^2.2.0",
 		"nord": "latest",
 		"open-color": "latest",
 		"prerender-spa-plugin": "latest",
-		"vue": "latest"
+		"vue": "latest",
+		"yaml-loader": "^0.5.0"
 	},
 	"devDependencies": {
 		"babel-loader": "latest",
@@ -26,8 +28,6 @@
 		"clean-webpack-plugin": "latest",
 		"copy-webpack-plugin": "latest",
 		"css-loader": "latest",
-		"eslint": "latest",
-		"eslint-plugin-vue": "latest",
 		"extract-text-webpack-plugin": "latest",
 		"file-loader": "latest",
 		"html-webpack-inline-source-plugin": "latest",
