@@ -1,5 +1,6 @@
 ---
-title: another image
-image: /uploads/1503862502117.png
+title: Torii
+image: /uploads/4.jpg
 ---
+
 
