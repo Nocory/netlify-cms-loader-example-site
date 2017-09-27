@@ -17,6 +17,7 @@
 		"bulma": "latest",
 		"front-matter": "^2.2.0",
 		"markdown-it": "^8.4.0",
+		"netlify-cms-loader": "^0.1.1",
 		"nord": "latest",
 		"open-color": "latest",
 		"prerender-spa-plugin": "latest",

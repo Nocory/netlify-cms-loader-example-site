@@ -89,11 +89,6 @@ module.exports = {
 			path.resolve(__dirname, 'node_modules')
 		]
 	},
-	resolveLoader: {
-		alias: {
-			'netlify-cms': path.join(__dirname, 'netlifyCMSLoader.js')
-		}
-	},
 	plugins: [
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new CleanWebpackPlugin(['build'], {
