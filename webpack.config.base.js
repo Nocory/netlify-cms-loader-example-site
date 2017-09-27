@@ -7,7 +7,7 @@ const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
-const netlifyCMSLoader = require("./netlifyCMSLoader")
+//const netlifyCMSLoader = require("./netlifyCMSLoader")
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const ExtractNormal = new ExtractTextPlugin({
@@ -113,13 +113,14 @@ module.exports = {
 
 		new HtmlWebpackPlugin({
 			//inlineSource: '\.(js|css)$',
-			inlineSource: 'critical\.css$',
+			inlineSource: 'critical.css$',
 			template: 'src/index.html'
 		}),
 		new HtmlWebpackInlineSourcePlugin(),
 		new CopyWebpackPlugin([
 			{ from: 'src/admin', to: 'admin' },
-			{ from: 'src/uploads', to: 'uploads' }
+			{ from: 'src/uploads', to: 'uploads' },
+			{ from: 'src/cms', to: 'cms' }
 		]),
 		ExtractCritical,
 		ExtractNormal

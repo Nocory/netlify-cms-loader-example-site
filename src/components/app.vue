@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<componentAdditional></componentAdditional>
+		<componentCMS></componentCMS>
 	</div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 		}
 	},
 	components: {
-		componentAdditional: require("./additional.vue").default,
+		componentCMS: require("./cms.vue").default,
 	}
 }
 </script>

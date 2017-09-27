@@ -1,40 +1,48 @@
 const path = require('path')
 const fm = require('front-matter')
+const loaderUtils = require("loader-utils")
 
-module.exports = function(content) {
+const checkForBody = (collection) => {
+	for (let field of collection.fields) {
+		if (field.name === "body") return true
+	}
+	return false
+}
+
+const loaderFnc = function(content) {
+	console.time("Netlify-CMS Loader")
 	this.cacheable()
-	content = JSON.parse(content)
-	//console.log(content)
-	console.log("===== NETLIFY CMS LOADER START =====")
+	const options = loaderUtils.getOptions(this)
 
-	let result = {}
+	const config = JSON.parse(content)
+	const collection = config.collections.find((el) => el.name === options.collection)
+	const collectioneHasBody = checkForBody(collection)
 
-	for (let collection of content.collections) {
-		result[collection.label] = {}
+	let items = []
 
-		let folder = collection.folder
+	const allFiles = this.fs.readdirSync(collection.folder)
+	for (let fileName of allFiles) {
+		let fileContent = this.fs.readFileSync(path.resolve(__dirname, collection.folder, fileName), { encoding: 'utf8' }) //FIXME: encoding not working??
+		fileContent = fileContent.toString()
+		let fmContent = fm(fileContent)
+		let cmsEntry = fmContent.attributes
 
-		const allFiles = this.fs.readdirSync(folder)
-		//console.log("found")
-		//result[collection.label] = files
-		for (let filePath of allFiles) {
-			//console.log(filePath)
-			//console.log(path.resolve(__dirname, collection.folder, filePath))
-			let fileContent = this.fs.readFileSync(path.resolve(__dirname, collection.folder, filePath), { encoding: 'utf8' }) //FIXME: encoding not working
-			fileContent = fileContent.toString()
-			//console.log(typeof fileContent)
-			//console.log(fileContent)
-			let fmContent = fm(fileContent)
-			let attributes = fmContent.attributes
-			result[collection.label][filePath] = attributes
+		if (fmContent.body.length < (options.bodyLimit || 128)) {
+			cmsEntry.body = fmContent.body
 		}
+
+		cmsEntry.filename = fileName
+		cmsEntry.hasBody = collectioneHasBody
+		let fileStats = this.fs.statSync(path.resolve(__dirname, collection.folder, fileName))
+		cmsEntry.birthtimeMs = fileStats.birthtimeMs
+		items.push(cmsEntry)
 	}
 
-	console.log(result)
+	console.log("======================")
+	console.timeEnd("Netlify-CMS Loader")
+	console.log("======================")
 
-	console.log("===== NETLIFY CMS LOADER END =====")
-
-	//this.fs
-	return `module.exports = JSON.parse(${JSON.stringify(result)})`
-	//return `module.exports = ""`
+	return `module.exports = ${JSON.stringify(items)}`
 }
+
+module.exports = loaderFnc

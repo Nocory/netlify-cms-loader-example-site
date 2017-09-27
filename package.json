@@ -13,8 +13,10 @@
 	"license": "MIT",
 	"dependencies": {
 		"animejs": "latest",
+		"axios": "^0.16.2",
 		"bulma": "latest",
 		"front-matter": "^2.2.0",
+		"markdown-it": "^8.4.0",
 		"nord": "latest",
 		"open-color": "latest",
 		"prerender-spa-plugin": "latest",
