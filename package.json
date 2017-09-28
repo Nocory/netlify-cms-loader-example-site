@@ -17,7 +17,7 @@
 		"bulma": "latest",
 		"front-matter": "^2.2.0",
 		"markdown-it": "^8.4.0",
-		"netlify-cms-loader": "^0.1.1",
+		"netlify-cms-loader": "^0.1.3",
 		"nord": "latest",
 		"open-color": "latest",
 		"prerender-spa-plugin": "latest",
@@ -28,7 +28,7 @@
 		"babel-loader": "latest",
 		"babel-minify-webpack-plugin": "latest",
 		"babel-preset-env": "latest",
-		"clean-webpack-plugin": "latest",
+		"clean-webpack-plugin": "^0.1.17",
 		"copy-webpack-plugin": "latest",
 		"css-loader": "latest",
 		"extract-text-webpack-plugin": "latest",
@@ -45,7 +45,7 @@
 		"vue-loader": "latest",
 		"vue-template-compiler": "latest",
 		"webpack": "latest",
-		"webpack-dev-server": "latest",
+		"webpack-dev-server": "^2.9.1",
 		"webpack-merge": "latest"
 	}
 }
