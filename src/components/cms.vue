@@ -57,7 +57,7 @@ export default {
 			msg: "Message from data",
 			cmsPosts: require('netlify-cms-loader?collection=posts&bodyLimit=512!../admin/config.yml'),
 			loadedPostIndex: -1,
-			cmsImages: require('netlify-cms-loader?collection=images!../admin/config.yml'),
+			cmsImages: require('netlify-cms-loader?collection=images&outputDirectory=cms_alt!../admin/config.yml'),
 		}
 	},
 	methods: {
@@ -65,9 +65,7 @@ export default {
 			this.loadedPostIndex = index
 			if (this.cmsPosts[index].body) return
 
-			const filename = this.cmsPosts[index].filename
-
-			axios.get(`/cms/posts/${filename}`)
+			axios.get(`${this.cmsPosts[index].filePath}`)
 				.then((response) => {
 					let obj = fm(response.data)
 					this.$set(this.cmsPosts[index], "body", obj.body)

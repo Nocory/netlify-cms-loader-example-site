@@ -114,8 +114,8 @@ module.exports = {
 		new HtmlWebpackInlineSourcePlugin(),
 		new CopyWebpackPlugin([
 			{ from: 'src/admin', to: 'admin' },
-			{ from: 'src/uploads', to: 'uploads' },
-			{ from: 'src/cms', to: 'cms' }
+			//{ from: 'src/uploads', to: 'uploads' },
+			//{ from: 'src/cms', to: 'cms' }
 		]),
 		ExtractCritical,
 		ExtractNormal
