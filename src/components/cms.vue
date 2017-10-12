@@ -57,7 +57,7 @@ export default {
 	data() {
 		return {
 			msg: "Message from data",
-			cmsPosts: require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true&bodyLimit=1150!../admin/config.yml'),
+			cmsPosts: require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!../admin/config.yml'),
 			cmsImages: require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!../admin/config.yml'),
 			loadedPostIndex: -1,
 		}
