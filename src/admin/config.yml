@@ -14,10 +14,9 @@ collections:
     create: true
     fields:
       - {label: Title, name: title, widget: string, tagname: h1}
+      - {label: Date, name: date, widget: datetime}
       - {label: Image, name: image, widget: image}
       - {label: Body, name: body, widget: markdown}
-      - {label: Categories, name: categories, widget: list}
-      - {label: Tags, name: tags, widget: list, default: ['term_1', 'term_2']}
   - name: images
     label: Images
     folder: "src/cms/images"
