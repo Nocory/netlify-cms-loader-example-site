@@ -5,13 +5,18 @@
 
 				<div class="column cms-objects">
 					<div class="subtitle">The objects made available by the loader:</div>
+					<code class="require-code">
+						<b>cmsPosts:</b> require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!../admin/config.yml'),
+						<br>
+						<b>cmsImages:</b> require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!../admin/config.yml')
+					</code>
 					<p>cmsPosts:</p>
-					<code v-for="(item,index) in cmsPosts" :key="index">
+					<code class="loader-output" v-for="(item,index) in cmsPosts" :key="index">
 						{
 						<div class="cms-object-item" v-for="(entry,key,index) in item" :key="key">{{key}} : {{entry}}</div>},
 					</code>
 					<p>cmsImages:</p>
-					<code v-for="(item,index) in cmsImages" :key="index">
+					<code class="loader-output" v-for="(item,index) in cmsImages" :key="index">
 						{
 						<div class="cms-object-item" v-for="(entry,key,index) in item" :key="key">{{key}} : {{entry}}</div>},
 					</code>
@@ -52,8 +57,8 @@ export default {
 	data() {
 		return {
 			msg: "Message from data",
-			cmsPosts: require('netlify-cms-loader?collection=posts&bodyLimit=512!../admin/config.yml'),
-			cmsImages: require('netlify-cms-loader?collection=images&outputDirectory=cms_alt!../admin/config.yml'),
+			cmsPosts: require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true&bodyLimit=1150!../admin/config.yml'),
+			cmsImages: require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!../admin/config.yml'),
 			loadedPostIndex: -1,
 		}
 	},
@@ -83,7 +88,13 @@ export default {
 	min-height: 100%;
 }
 
-code {
+.require-code {
+	font-size: 0.6rem;
+	color: $oc-gray-7;
+	padding: 0;
+}
+
+.loader-output {
 	font-size: 0.8rem;
 	color: $oc-gray-7;
 }
