@@ -1,5 +1,5 @@
 ---
-title: The latest post
+title: The newest post
 date: 2017-10-12T22:17:28.273Z
 image: /uploads/2.jpg
 ---
