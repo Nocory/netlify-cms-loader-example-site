@@ -1,7 +1,7 @@
 <template>
-	<div id="app">
-		<componentCMS></componentCMS>
-	</div>
+  <div id="app">
+    <componentCMS/>
+  </div>
 </template>
 
 <script>

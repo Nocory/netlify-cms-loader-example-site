@@ -1,52 +1,52 @@
 <template>
-	<div class="component-cms section">
-		<div class="container is-fluid">
-			<div class="columns">
+  <div class="component-cms section">
+    <div class="container is-fluid">
+      <div class="columns">
 
-				<div class="column cms-objects">
-					<div class="subtitle">The objects made available by the loader:</div>
-					<code class="require-code">
-						<b>cmsPosts:</b> require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!../admin/config.yml'),
-						<br>
-						<b>cmsImages:</b> require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!../admin/config.yml')
-					</code>
-					<p>cmsPosts:</p>
-					<code class="loader-output" v-for="(item,index) in cmsPosts" :key="index">
-						{
-						<div class="cms-object-item" v-for="(entry,key,index) in item" :key="key">{{key}} : {{entry}}</div>},
-					</code>
-					<p>cmsImages:</p>
-					<code class="loader-output" v-for="(item,index) in cmsImages" :key="index">
-						{
-						<div class="cms-object-item" v-for="(entry,key,index) in item" :key="key">{{key}} : {{entry}}</div>},
-					</code>
-				</div>
+        <div class="column cms-objects">
+          <div class="subtitle">The objects made available by the loader:</div>
+          <code class="require-code">
+            <b>cmsPosts:</b> require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!../admin/config.yml'),
+            <br>
+            <b>cmsImages:</b> require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!../admin/config.yml')
+          </code>
+          <p>cmsPosts:</p>
+          <code class="loader-output" v-for="(item,index) in cmsPosts" :key="index">
+            {
+            <div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
+          </code>
+          <p>cmsImages:</p>
+          <code class="loader-output" v-for="(item,index) in cmsImages" :key="index">
+            {
+            <div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
+          </code>
+        </div>
 
-				<div class="column">
-					<div class="post-buttons">
-						<p class="subtitle">Posts from the CMS (click)</p>
-						<button class="button" v-for="(item,index) in cmsPosts" :key="index" @click="loadPost(index)">{{item.title}}</button>
-					</div>
-					<div class="cms-post-wrapper" v-if="loadedPostIndex != -1">
-						<div class="title">{{cmsPosts[loadedPostIndex].title}}</div>
-						<img :src="cmsPosts[loadedPostIndex].image">
-						<p>
-							{{cmsPosts[loadedPostIndex].body}}
-						</p>
-					</div>
-				</div>
+        <div class="column">
+          <div class="post-buttons">
+            <p class="subtitle">Posts from the CMS (click)</p>
+            <button class="button" v-for="(item,index) in cmsPosts" :key="index" @click="loadPost(index)">{{ item.title }}</button>
+          </div>
+          <div class="cms-post-wrapper" v-if="loadedPostIndex != -1">
+            <div class="title">{{ cmsPosts[loadedPostIndex].title }}</div>
+            <img :src="cmsPosts[loadedPostIndex].image">
+            <p>
+              {{ cmsPosts[loadedPostIndex].body }}
+            </p>
+          </div>
+        </div>
 
-				<div class="column is-3">
-					<p class="subtitle">Images from the CMS:</p>
-					<div class="cms-image-wrapper" v-for="(item,index) in cmsImages" :key="index">
-						<img :src="item.image">
-						<div class="subtitle is-4">{{item.title}}</div>
-					</div>
-				</div>
+        <div class="column is-3">
+          <p class="subtitle">Images from the CMS:</p>
+          <div class="cms-image-wrapper" v-for="(item,index) in cmsImages" :key="index">
+            <img :src="item.image">
+            <div class="subtitle is-4">{{ item.title }}</div>
+          </div>
+        </div>
 
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -57,8 +57,8 @@ export default {
 	data() {
 		return {
 			msg: "Message from data",
-			cmsPosts: require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!../admin/config.yml'),
-			cmsImages: require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!../admin/config.yml'),
+			cmsPosts: require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!admin/config.yml'),
+			cmsImages: require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!admin/config.yml'),
 			loadedPostIndex: -1,
 		}
 	},
@@ -68,11 +68,11 @@ export default {
 			if (this.cmsPosts[index].body) return
 
 			axios.get(`${this.cmsPosts[index].filePath}`)
-				.then((response) => {
+				.then(response => {
 					let obj = fm(response.data)
 					this.$set(this.cmsPosts[index], "body", obj.body)
 				})
-				.catch((error) => {
+				.catch(error => {
 					console.log(error)
 				})
 		}
