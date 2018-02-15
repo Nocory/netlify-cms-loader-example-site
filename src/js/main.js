@@ -1,5 +1,3 @@
-//import 'normalize.css'
-//require("css/main.scss")
 import "css/critical.scss"
 import "css/main.scss"
 
