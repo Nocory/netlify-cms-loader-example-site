@@ -1,56 +1,53 @@
 <template>
-  <div class="component-cms section">
-    <div class="container is-fluid">
-      <div class="columns">
+  <div class="component-cms">
+		<div class="container">
 
-        <div class="column cms-objects">
-          <div class="subtitle">The objects made available by the loader:</div>
-          <code class="require-code">
-            <b>cmsPosts:</b> require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!../admin/config.yml'),
-            <br>
-            <b>cmsImages:</b> require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!../admin/config.yml')
-          </code>
-          <p>cmsPosts:</p>
-          <code class="loader-output" v-for="(item,index) in cmsPosts" :key="index">
-            {
-            <div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
-          </code>
-          <p>cmsImages:</p>
-          <code class="loader-output" v-for="(item,index) in cmsImages" :key="index">
-            {
-            <div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
-          </code>
-        </div>
+			<div class="section-info">
+				<h2 class="subtitle">The objects made available by the loader:</h2>
+				<code class="require-code">
+					<b>cmsPosts:</b><br>
+					require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!admin/config.yml')<br>
+					<br>
+					<b>cmsImages:</b><br>
+					require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!admin/config.yml')
+				</code>
+				<p>cmsPosts:</p>
+				<code class="loader-output" v-for="(item,index) in cmsPosts" :key="'posts-'+index">
+					{
+					<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
+				</code>
+				<p>cmsImages:</p>
+				<code class="loader-output" v-for="(item,index) in cmsImages" :key="'images-'+index">
+					{
+					<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
+				</code>
+			</div>
 
-        <div class="column">
-          <div class="post-buttons">
-            <p class="subtitle">Posts from the CMS (click)</p>
-            <button class="button" v-for="(item,index) in cmsPosts" :key="index" @click="loadPost(index)">{{ item.title }}</button>
-          </div>
-          <div class="cms-post-wrapper" v-if="loadedPostIndex != -1">
-            <div class="title">{{ cmsPosts[loadedPostIndex].title }}</div>
-            <img :src="cmsPosts[loadedPostIndex].image">
-            <p>
-              {{ cmsPosts[loadedPostIndex].body }}
-            </p>
-          </div>
-        </div>
+			<div class="section-posts">
+				<h2 class="subtitle">Posts from the CMS:</h2>
+				<div class="post-buttons">
+					<button class="button" v-for="(item,index) in cmsPosts" :key="index" @click="loadPost(index)">Load '{{ item.title }}'</button>
+				</div>
+				<div class="post-wrapper" v-if="loadedPostIndex != -1">
+					<h3 class="title">{{ cmsPosts[loadedPostIndex].title }}</h3>
+					<img :src="cmsPosts[loadedPostIndex].image">
+					<div v-html="cmsPosts[loadedPostIndex].body"></div>
+				</div>
+			</div>
 
-        <div class="column is-3">
-          <p class="subtitle">Images from the CMS:</p>
-          <div class="cms-image-wrapper" v-for="(item,index) in cmsImages" :key="index">
-            <img :src="item.image">
-            <div class="subtitle is-4">{{ item.title }}</div>
-          </div>
-        </div>
+			<div class="section-images">
+				<h2 class="subtitle">Images from the CMS:</h2>
+				<div class="image-wrapper" v-for="(item,index) in cmsImages" :key="index">
+					<img :src="item.image">
+					<h4 class="subtitle">{{ item.title }}</h4>
+				</div>
+			</div>
 
-      </div>
-    </div>
+		</div>
   </div>
 </template>
 
 <script>
-import fm from "front-matter"
 import axios from 'axios'
 
 export default {
@@ -69,11 +66,10 @@ export default {
 
 			axios.get(`${this.cmsPosts[index].filePath}`)
 				.then(response => {
-					let obj = fm(response.data)
-					this.$set(this.cmsPosts[index], "body", obj.body)
+					this.$set(this.cmsPosts[index], "body", response.data.body)
 				})
 				.catch(error => {
-					console.log(error)
+					console.error(error)
 				})
 		}
 	}
@@ -86,67 +82,92 @@ export default {
 .component-cms {
 	background: $oc-gray-1;
 	min-height: 100%;
-}
-
-.require-code {
-	font-size: 0.6rem;
-	color: $oc-gray-7;
-	padding: 0;
-}
-
-.loader-output {
-	font-size: 0.8rem;
-	color: $oc-gray-7;
-}
-
-.post-buttons {
-	margin-bottom: 1rem;
-	button {
-		margin-right: 1rem;
-	}
-
-	button:focus {
-		border-color: $oc-blue-5;
-		box-shadow: 0 0 0 2px $oc-blue-5;
-	}
-}
-
-.cms-post-wrapper {
-	background: $oc-gray-0;
-	color: $oc-gray-7;
 	padding: 1rem;
-	box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.25);
+}
 
-	.title {
+.container{
+	@include desktop{
+		display: flex;
+	}
+	>div{
+		margin: 2rem;
+	}
+}
+
+.section-info{
+	flex-grow: 1;
+	flex-basis: 0;
+	>.require-code{
+		font-size: 0.6rem;
 		color: $oc-gray-7;
+		padding: 0;
 	}
+	>.loader-output {
+		font-size: 0.8rem;
+		color: $oc-gray-7;
+		>.cms-object-item {
+			margin-left: 2rem;
+		}
+	}
+}
 
-	img {
-		max-height: 320px;
+.section-posts{
+	flex-grow: 1;
+	flex-basis: 0;
+	>.post-buttons {
+		display: flex;
 		margin-bottom: 1rem;
+		>button {
+			box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
+			background: $oc-gray-1;
+			border: 1px solid $oc-gray-6;
+			border-radius: 4px;
+			margin-right: 1rem;
+			padding: 0.25rem 0.5rem;
+			&:focus{
+				border-color: $oc-blue-5;
+			}
+		}
 	}
-}
-
-.cms-image-wrapper {
-	display: flex;
-	flex-direction: column;
-	max-width: 90vh;
-
-	box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.25);
-	margin-bottom: 2rem; //height: 256px; //max-width: 100%;
-	//width: auto;
-	img {
-		object-fit: cover;
-		object-position: center;
-		overflow: hidden;
-	}
-
-	.subtitle {
+	>.post-wrapper {
+		background: $oc-gray-0;
+		color: $oc-gray-7;
 		padding: 1rem;
+		box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
+
+		>.title {
+			color: $oc-gray-7;
+		}
+
+		>img {
+			max-width: 100%;
+			max-height: 320px;
+			margin-bottom: 1rem;
+		}
 	}
 }
 
-.cms-object-item {
-	margin-left: 2rem;
+.section-images{
+	flex-grow: 1;
+	flex-basis: 0;
+	>.image-wrapper {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+
+		box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
+		margin-bottom: 2rem;
+		
+		>img {
+			width: 100%;
+			//object-fit: contain;
+			object-position: center;
+			overflow: hidden;
+		}
+
+		>.subtitle {
+			padding: 1rem;
+		}
+	}
 }
 </style>

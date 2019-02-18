@@ -1,4 +1,3 @@
-import "css/critical.scss"
 import "css/main.scss"
 
 import Vue from "vue/dist/vue.runtime.esm.js"
