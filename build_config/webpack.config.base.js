@@ -48,6 +48,13 @@ module.exports = {
 			test: /\.(png|jpg|jpeg|gif)$/,
 			loader: "url-loader?limit=1024&name=img/[name]_[hash:8].[ext]"
 		},
+		/*
+		{
+			//test: /admin\/config.yml$/,
+			test: /^admin\/config\.yml$/,
+			loader: 'netlify-cms-loader'
+		},
+		*/
 		{
 			test: /\.js$/,
 			exclude: /node_modules/,
