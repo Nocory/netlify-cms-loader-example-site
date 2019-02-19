@@ -3,28 +3,36 @@
 		<div class="container">
 
 			<div class="section-info">
-				<h2 class="subtitle">The objects made available by the loader:</h2>
+				<h2>The objects made available by the loader:</h2>
 				<code class="require-code">
-					<b>cmsPosts:</b><br>
-					require('netlify-cms-loader?collection=posts&sortBy=date&reverse=true!admin/config.yml')<br>
+					<b>const cmsPosts</b> = require(`netlify-cms-loader?{<br>
+						collection:'posts',<br>
+						outputDirectory:'cms_alt',<br>
+						sortBy:'date',<br>
+						reverse:true,<br>
+					}!admin/config.yml`)<br>
 					<br>
-					<b>cmsImages:</b><br>
-					require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!admin/config.yml')
+					<b>const cmsImages</b> = require(`netlify-cms-loader?{<br>
+						collection:'images',<br>
+						emitJSON: false<br>
+					}!admin/config.yml`)
 				</code>
-				<p>cmsPosts:</p>
+				<h4>cmsPosts:</h4>
 				<code class="loader-output" v-for="(item,index) in cmsPosts" :key="'posts-'+index">
 					{
-					<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
+						<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>
+					},
 				</code>
-				<p>cmsImages:</p>
+				<h4>cmsImages:</h4>
 				<code class="loader-output" v-for="(item,index) in cmsImages" :key="'images-'+index">
 					{
-					<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>},
+						<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>
+					},
 				</code>
 			</div>
 
 			<div class="section-posts">
-				<h2 class="subtitle">Posts from the CMS:</h2>
+				<h2>Posts from the CMS:</h2>
 				<div class="post-buttons">
 					<button class="button" v-for="(item,index) in cmsPosts" :key="index" @click="loadPost(index)">Load '{{ item.title }}'</button>
 				</div>
@@ -36,7 +44,7 @@
 			</div>
 
 			<div class="section-images">
-				<h2 class="subtitle">Images from the CMS:</h2>
+				<h2>Images from the CMS:</h2>
 				<div class="image-wrapper" v-for="(item,index) in cmsImages" :key="index">
 					<img :src="item.image">
 					<h4 class="subtitle">{{ item.title }}</h4>
@@ -132,7 +140,8 @@ export default {
 			border: 1px solid $oc-gray-6;
 			border-radius: 4px;
 			margin-right: 1rem;
-			padding: 0.25rem 0.5rem;
+			padding: 0.5rem 0.5rem;
+			font-size: 0.875rem;
 			&:focus{
 				border-color: $oc-blue-5;
 			}
