@@ -3,8 +3,8 @@ backend:
   repo: nocory/netlify-cms-loader-example-site
   branch: master
 #publish_mode: editorial_workflow
-media_folder: "/src/uploads"
-public_folder: "/uploads"
+media_folder: "src/uploads"
+public_folder: "uploads"
 site_url: "https://netlify-cms-loader.netlify.com"
 
 collections:
