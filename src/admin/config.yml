@@ -1,14 +1,15 @@
 backend:
   name: github
-  repo: nocory/netlify_cms
+  repo: nocory/netlify-cms-loader-example-site
   branch: master
 #publish_mode: editorial_workflow
-media_folder: "src/uploads"
-public_folder: "uploads"
+media_folder: "/src/uploads"
+public_folder: "/uploads"
+site_url: "https://netlify-cms-loader.netlify.com"
 
 collections:
-  - name: posts
-    label: Post
+  - name: "posts"
+    label: "Post"
     folder: "src/cms/posts"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     create: true
@@ -17,11 +18,30 @@ collections:
       - {label: Date, name: date, widget: datetime}
       - {label: Image, name: image, widget: image}
       - {label: Body, name: body, widget: markdown}
-  - name: images
-    label: Images
+  - name: "images"
+    label: "Images"
     folder: "src/cms/images"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     create: true
     fields:
       - {label: Title, name: title, widget: string, tagname: h1}
       - {label: Image, name: image, widget: image}
+  - name: "files"
+    label: "Files"
+    files:
+      - name: "contact"
+        label: "Contact"
+        file: "src/cms/contact.md"
+        fields:
+          - {label: Name, name: name, widget: string}
+          - {label: Email, name: email, widget: string}
+          - {label: Image, name: image, widget: image}
+          - {label: Mood, name: mood, widget: string}
+      - name: "bio"
+        label: "Bio"
+        file: "src/cms/bio.json"
+        fields:
+          - {label: Name, name: name, widget: string}
+          - {label: Place of birth, name: pob, widget: string}
+          - {label: Age, name: age, widget: number}
+          - {label: About, name: body, widget: markdown}
