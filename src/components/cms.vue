@@ -82,8 +82,9 @@ export default {
 			//cmsPosts: require('netlify-cms-loader?collection=posts&sortBy=date&reverse=false!admin/config.yml'),
 			//cmsPosts: require("cms?collection=posts!admin/config.yml")
 			cmsPosts: require(`cms?{
-				'collection':'posts',
-				'keys': ['title','date']
+				collection:'posts',
+				fields: ['title','date'],
+				limit: 3
 			}!`),
 			loadedPostIndex: -1,
 			cmsImages: require("cms?images!"),

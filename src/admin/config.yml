@@ -37,7 +37,7 @@ collections:
           - {label: Site Description, name: body, widget: markdown}
           - label: Column Titles
             name: columnTitles
-            widget: list
+            widget: object
             fields:
             - {label: Left, name: left, widget: string}
             - {label: Center, name: center, widget: string}
