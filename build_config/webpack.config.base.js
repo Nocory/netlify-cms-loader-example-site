@@ -111,8 +111,8 @@ module.exports = {
 		}),
 		//new HtmlWebpackInlineSourcePlugin(),
 		new CopyWebpackPlugin([
-			//{ from: 'src/static/_headers', to: '_headers', toType: 'file'}, // hints for netlify http2 push
-			{ from: 'src/admin', to: 'admin' }
+			{ from: 'src/admin', to: 'admin' },
+			{ from: 'src/uploads', to: 'uploads' }
 		]),
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output

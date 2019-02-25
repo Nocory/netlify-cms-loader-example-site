@@ -1,9 +1,9 @@
 {
   "siteTitle": "'netlify-cms-loader' Example Site",
-  "body": "test test\n\n123",
+  "body": "An example page to test and show the functionality of the loader.",
   "columnTitles": {
     "left": "The data required via the loader:",
-    "center": "Posts from the CMS:",
+    "center": "Posts from the CMS: (click to fetch)",
     "right": "Images from the CMS:"
   }
 }
