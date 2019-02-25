@@ -12,11 +12,18 @@
 					<b>cmsPosts</b>: require(`cms?{
 					<ul>
 						<li>collection:'posts',</li>
-						<li>keys: ['title','date'],</li>
+						<li>fields: ['title','date'],</li>
+						<li>limit: 3,</li>
 					</ul>
 					}!`),<br>
 					<b>cmsImages</b>: require('cms?images!'),<br>
-					<b>cmsPageStrings</b>: require("cms?collection=files/pageStrings&emitJSON=false!")
+					<b>cmsPageStrings</b>: require("cms?{
+					<ul>
+						<li>collection:'files/pageStrings',</li>
+						<li>emitJSON: false,</li>
+						<li>includeBody: true,</li>
+					</ul>
+					}!")
 				</code>
 				<h4>cmsPosts:</h4>
 				<code class="loader-output" v-for="(item,index) in cmsPosts" :key="'posts-'+index">
