@@ -1,38 +1,56 @@
 <template>
   <div class="component-cms">
+		<div class="container header">
+			<h2 class="title">{{cmsPageStrings.siteTitle}}</h2>
+			<div class="description" v-html="cmsPageStrings.body"></div>
+		</div>
+		
 		<div class="container">
-
 			<div class="section-info">
-				<h2>The objects made available by the loader:</h2>
+				<h3>{{cmsPageStrings.columnTitles.left}}</h3>
 				<code class="require-code">
-					<b>const cmsPosts</b> = require(`netlify-cms-loader?{<br>
-						collection:'posts',<br>
-						outputDirectory:'cms_alt',<br>
-						sortBy:'date',<br>
-						reverse:true,<br>
-					}!admin/config.yml`)<br>
-					<br>
-					<b>const cmsImages</b> = require(`netlify-cms-loader?{<br>
-						collection:'images',<br>
-						emitJSON: false<br>
-					}!admin/config.yml`)
+					<b>cmsPosts</b>: require(`cms?{
+					<ul>
+						<li>collection:'posts',</li>
+						<li>keys: ['title','date'],</li>
+					</ul>
+					}!`),<br>
+					<b>cmsImages</b>: require('cms?images!'),<br>
+					<b>cmsPageStrings</b>: require("cms?collection=files/pageStrings&emitJSON=false!")
 				</code>
 				<h4>cmsPosts:</h4>
 				<code class="loader-output" v-for="(item,index) in cmsPosts" :key="'posts-'+index">
 					{
-						<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>
+						<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }},</div>
 					},
 				</code>
 				<h4>cmsImages:</h4>
 				<code class="loader-output" v-for="(item,index) in cmsImages" :key="'images-'+index">
 					{
-						<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }}</div>
+						<div class="cms-object-item" v-for="(entry,key) in item" :key="key">{{ key }} : {{ entry }},</div>
+					},
+				</code>
+				<h4>cmsPageStrings:</h4>
+				<code class="loader-output" >
+					{
+						<div class="cms-object-item" v-for="(value,key) in cmsPageStrings" :key="key">
+							<template v-if="typeof value == 'object'">
+								<code class="loader-output">
+									{{key}} : {
+										<div class="cms-object-item" v-for="(value,key) in value" :key="key">{{ key }} : {{ value }},</div>
+									},
+								</code>
+							</template>
+							<template v-else>
+								{{ key }} : {{ value }},
+							</template>
+						</div>
 					},
 				</code>
 			</div>
 
 			<div class="section-posts">
-				<h2>Posts from the CMS:</h2>
+				<h3>{{cmsPageStrings.columnTitles.center}}</h3>
 				<div class="post-buttons">
 					<button class="button" v-for="(item,index) in cmsPosts" :key="index" @click="loadPost(index)">Load '{{ item.title }}'</button>
 				</div>
@@ -44,7 +62,7 @@
 			</div>
 
 			<div class="section-images">
-				<h2>Images from the CMS:</h2>
+				<h3>{{cmsPageStrings.columnTitles.right}}</h3>
 				<div class="image-wrapper" v-for="(item,index) in cmsImages" :key="index">
 					<img :src="item.image">
 					<h4 class="subtitle">{{ item.title }}</h4>
@@ -62,18 +80,34 @@ export default {
 	data() {
 		return {
 			//cmsPosts: require('netlify-cms-loader?collection=posts&sortBy=date&reverse=false!admin/config.yml'),
+			//cmsPosts: require("cms?collection=posts!admin/config.yml")
+			cmsPosts: require(`cms?{
+				'collection':'posts',
+				'keys': ['title','date']
+			}!`),
+			loadedPostIndex: -1,
+			cmsImages: require("cms?images!"),
+			cmsPageStrings: require(`cms?{
+				'collection': 'files/pageStrings',
+				'emitJSON': false,
+				'includeBody': true
+				}!`)
+			//cmsPosts: require("cms-config?hello=1")
+			/*
 			cmsPosts: require(`netlify-cms-loader?{
 				collection:'posts',
-				outputDirectory:'cms_alt',
 				sortBy:'date',
-				reverse:true,
+				reverse:true
 			}!admin/config.yml`),
 			//cmsImages: require('netlify-cms-loader?collection=images&outputDirectory=cms_alt&sortBy=title!admin/config.yml'),
 			cmsImages: require(`netlify-cms-loader?{
-				collection:'images',
-				emitJSON: false
+				collection:'images'
 			}!admin/config.yml`),
 			loadedPostIndex: -1,
+			test: require(`netlify-cms-loader?{
+				collection:'files'
+			}!admin/config.yml`)
+			*/
 		}
 	},
 	methods: {
@@ -83,10 +117,10 @@ export default {
 
 			axios.get(`${this.cmsPosts[index].filePath}`)
 				.then(response => {
-					this.$set(this.cmsPosts[index], "body", response.data.body)
+					this.$set(this.cmsPosts, index, response.data)
 				})
 				.catch(error => {
-					console.error(error)
+					console.error(error.message)
 				})
 		}
 	}
@@ -99,42 +133,54 @@ export default {
 .component-cms {
 	background: $oc-gray-1;
 	min-height: 100%;
-	padding: 1rem;
 }
 
 .container{
 	@include desktop{
 		display: flex;
 	}
-	>div{
-		margin: 2rem;
-	}
+	padding: 1rem;
+}
+
+.header{
+	display: flex;
+	flex-direction: column;
 }
 
 .section-info{
 	flex-grow: 1;
 	flex-basis: 0;
 	>.require-code{
-		font-size: 0.6rem;
+		font-size: 0.8rem;
 		color: $oc-gray-7;
 		padding: 0;
+		>ul{
+			margin: 0;
+			padding: 0 0 0 1rem;
+			list-style-type:none;
+		}
 	}
 	>.loader-output {
 		font-size: 0.8rem;
 		color: $oc-gray-7;
-		>.cms-object-item {
-			margin-left: 2rem;
-		}
 	}
+}
+
+.cms-object-item {
+	margin-left: 2rem;
 }
 
 .section-posts{
 	flex-grow: 1;
 	flex-basis: 0;
+	@include desktop{
+		padding: 0 1rem;
+	}
 	>.post-buttons {
 		display: flex;
 		margin-bottom: 1rem;
 		>button {
+			cursor: pointer;
 			box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
 			background: $oc-gray-1;
 			border: 1px solid $oc-gray-6;

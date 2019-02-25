@@ -51,8 +51,11 @@ module.exports = {
 		/*
 		{
 			//test: /admin\/config.yml$/,
-			test: /^admin\/config\.yml$/,
-			loader: 'netlify-cms-loader'
+			test: /admin\/config\.yml$/,
+			loader: 'netlify-cms-loader',
+			options: {
+				test: "test"
+			}
 		},
 		*/
 		{
@@ -69,11 +72,20 @@ module.exports = {
 		alias: {
 			//"vue$": 'vue/dist/vue.esm.js',
 			//"vue-router$": 'vue-router/dist/vue-router.esm.js'
+			//"cms": "admin/config.yml"
+			//"cms-loader": "netlify-cms-loader",
+			//"cms-config": "admin/config.yml",
 		},
 		modules: [
 			path.resolve('src'),
 			path.resolve('node_modules')
 		]
+	},
+	resolveLoader: {
+		modules: [path.resolve('node_modules')],
+		alias: {
+			"cms": "netlify-cms-loader"
+		}
 	},
 	plugins: [
 		new VueLoaderPlugin(),
@@ -86,7 +98,11 @@ module.exports = {
 		}),
 
 		new webpack.EnvironmentPlugin(['NODE_ENV']),
-
+		/*
+		new webpack.DefinePlugin({
+			'process.env.NETLIFY_CMS_LOADER_CONFIG': 'admin/config.yml'
+		}),
+		*/
 		new HtmlWebpackPlugin({
 			//inlineSource: '\.(js|css)$',
 			//inlineSource: '.css$',
@@ -109,5 +125,4 @@ module.exports = {
 		maxModules: Infinity,
 		optimizationBailout: true
 	}
-	
 }

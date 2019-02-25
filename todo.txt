@@ -1,0 +1,5 @@
+only copy media files used in required content
+
+support media files in list widgets
+
+fix sorting

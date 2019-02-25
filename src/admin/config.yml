@@ -11,7 +11,7 @@ collections:
   - name: "posts"
     label: "Post"
     folder: "src/cms/posts"
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}_{{hour}}-{{minute}}-{{second}}_{{slug}}"
     create: true
     fields:
       - {label: Title, name: title, widget: string, tagname: h1}
@@ -21,7 +21,7 @@ collections:
   - name: "images"
     label: "Images"
     folder: "src/cms/images"
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}_{{hour}}-{{minute}}-{{second}}_{{slug}}"
     create: true
     fields:
       - {label: Title, name: title, widget: string, tagname: h1}
@@ -29,19 +29,16 @@ collections:
   - name: "files"
     label: "Files"
     files:
-      - name: "contact"
-        label: "Contact"
-        file: "src/cms/contact.md"
+      - name: "pageStrings"
+        label: "Page Strings"
+        file: "src/cms/pageStrings.json"
         fields:
-          - {label: Name, name: name, widget: string}
-          - {label: Email, name: email, widget: string}
-          - {label: Image, name: image, widget: image}
-          - {label: Mood, name: mood, widget: string}
-      - name: "bio"
-        label: "Bio"
-        file: "src/cms/bio.json"
-        fields:
-          - {label: Name, name: name, widget: string}
-          - {label: Place of birth, name: pob, widget: string}
-          - {label: Age, name: age, widget: number}
-          - {label: About, name: body, widget: markdown}
+          - {label: Site Title, name: siteTitle, widget: string}
+          - {label: Site Description, name: body, widget: markdown}
+          - label: Column Titles
+            name: columnTitles
+            widget: list
+            fields:
+            - {label: Left, name: left, widget: string}
+            - {label: Center, name: center, widget: string}
+            - {label: Right, name: right, widget: string}
