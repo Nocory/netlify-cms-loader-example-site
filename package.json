@@ -11,7 +11,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"axios": "latest",
-		"netlify-cms": "^2.4.2",
 		"open-color": "^1.6.3",
 		"pino": "^5.11.1",
 		"vue": "^2.6.7"
@@ -32,7 +31,7 @@
 		"file-loader": "^3.0.0",
 		"html-webpack-plugin": "^3.2.0",
 		"mini-css-extract-plugin": "^0.5.0",
-		"netlify-cms-loader": "^0.7.2",
+		"netlify-cms-loader": "^0.7.3",
 		"node-sass": "^4.11.0",
 		"optimize-css-assets-webpack-plugin": "^5.0.0",
 		"postcss-loader": "^3.00",
